@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { useGetUpcomingLaunchesQuery } from '../redux/launchesApi';
+import Countdown from './Countdown';
+import LaunchPreview from './LaunchPreview';
 import Loader from './Loader';
 
 const Wrapper = styled.SafeAreaView`
@@ -17,9 +19,11 @@ const Home = () => {
             <View>
                 <Text>Spacewalk - your rocket launches & space news companion</Text>
                 {
-                    launches.isLoading ? <Loader /> : launches.data.results.map(launch => (
-                        <Text key={launch.id}>{launch.name}</Text>
-                    ))
+                    launches.isLoading ? <Loader /> :
+                    <>
+                    <LaunchPreview data={launches.data.results[0]} />
+                    <Countdown launchTime={launches.data.results[0].net} status={launches.data.results[0].status} />
+                    </>
                 }
             </View>
         </Wrapper>
