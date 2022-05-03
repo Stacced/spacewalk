@@ -25,6 +25,10 @@ const Unit = styled.Text`
     font-weight: bold;
 `;
 
+const StatusText = styled.Text`
+    font-size: 20px;
+`;
+
 let timer;
 const Countdown = ({ launchTime, status }) => {
     const [timeLeft, setTimeLeft] = useState(0);
@@ -51,27 +55,31 @@ const Countdown = ({ launchTime, status }) => {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
+    const noTimeData = timeLeft <= 0;
 
     return (
         <Wrapper>
-            <>
-            <UnitBlockWrapper>
-                <Number>{ days }</Number>
-                <Unit>{`day${days !== 1 ? 's' : ''}`}</Unit>
-            </UnitBlockWrapper>
-            <UnitBlockWrapper>
-                <Number>{ hours % 24 }</Number>
-                <Unit>{`hour${hours !== 1 ? 's' : ''}`}</Unit>
-            </UnitBlockWrapper>
-            <UnitBlockWrapper>
-                <Number>{ minutes % 60 }</Number>
-                <Unit>{`minute${minutes !== 1 ? 's' : ''}`}</Unit>
-            </UnitBlockWrapper>
-            <UnitBlockWrapper>
-                <Number>{ seconds % 60 }</Number>
-                <Unit>{`second${seconds !== 1 ? 's' : ''}`}</Unit>
-            </UnitBlockWrapper>
-            </>
+            {
+                noTimeData ? <StatusText>{ status.description }</StatusText> :
+                <>
+                <UnitBlockWrapper>
+                    <Number>{ noTimeData ? '-' : days }</Number>
+                    <Unit>{`day${days !== 1 ? 's' : ''}`}</Unit>
+                </UnitBlockWrapper>
+                <UnitBlockWrapper>
+                    <Number>{ noTimeData ? '-' : hours % 24 }</Number>
+                    <Unit>{`hour${hours !== 1 ? 's' : ''}`}</Unit>
+                </UnitBlockWrapper>
+                <UnitBlockWrapper>
+                    <Number>{ noTimeData ? '-' : minutes % 60 }</Number>
+                    <Unit>{`minute${minutes !== 1 ? 's' : ''}`}</Unit>
+                </UnitBlockWrapper>
+                <UnitBlockWrapper>
+                    <Number>{ noTimeData ? '-' : seconds % 60 }</Number>
+                    <Unit>{`second${seconds !== 1 ? 's' : ''}`}</Unit>
+                </UnitBlockWrapper>
+                </>
+            }
         </Wrapper>
     )
 }
