@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 
 const Wrapper = styled.View`
@@ -27,7 +27,7 @@ const Unit = styled.Text`
 
 let timer;
 const Countdown = ({ launchTime, status }) => {
-    const [timeLeft, setTimeLeft] = React.useState(0);
+    const [timeLeft, setTimeLeft] = useState(0);
     const launchTimestamp = new Date(launchTime).getTime() / 1000;
     
     useEffect(() => {
@@ -39,7 +39,7 @@ const Countdown = ({ launchTime, status }) => {
         return () => {
             clearInterval(timer);
         }
-    });
+    }, []);
 
     const updateTimeLeft = () => {
         const now = new Date();
@@ -60,15 +60,15 @@ const Countdown = ({ launchTime, status }) => {
                 <Unit>{`day${days !== 1 ? 's' : ''}`}</Unit>
             </UnitBlockWrapper>
             <UnitBlockWrapper>
-                <Number>{ hours }</Number>
+                <Number>{ hours % 24 }</Number>
                 <Unit>{`hour${hours !== 1 ? 's' : ''}`}</Unit>
             </UnitBlockWrapper>
             <UnitBlockWrapper>
-                <Number>{ minutes }</Number>
+                <Number>{ minutes % 60 }</Number>
                 <Unit>{`minute${minutes !== 1 ? 's' : ''}`}</Unit>
             </UnitBlockWrapper>
             <UnitBlockWrapper>
-                <Number>{ seconds }</Number>
+                <Number>{ seconds % 60 }</Number>
                 <Unit>{`second${seconds !== 1 ? 's' : ''}`}</Unit>
             </UnitBlockWrapper>
             </>
