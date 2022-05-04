@@ -12,6 +12,7 @@ const Wrapper = styled.Pressable`
 const BackgroundThumbnail = styled.ImageBackground`
     height: 100%;
     justify-content: space-between;
+    align-items: center;
 `;
 
 const Title = styled.Text`
@@ -19,6 +20,10 @@ const Title = styled.Text`
     font-size: 20px;
     margin: 20px;
     color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    textAlign: center;
+    border-radius: 15px;
+    padding: 5px 10px;
 `;
 
 const Time = styled.Text`
@@ -26,6 +31,10 @@ const Time = styled.Text`
     font-size: 20px;
     margin: 20px;
     color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    textAlign: center;
+    border-radius: 15px;
+    padding: 5px 10px;
 `;
 
 const LaunchPreview = ({ data, onPress }) => {
