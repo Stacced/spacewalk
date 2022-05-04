@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View } from 'react-native';
 import styled from 'styled-components/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useGetUpcomingLaunchesQuery } from '../redux/launchesApi';
 import Countdown from './Countdown';
 import LaunchPreview from './LaunchPreview';
@@ -13,6 +14,8 @@ const Wrapper = styled.SafeAreaView`
 
 const Home = () => {
     const launches = useGetUpcomingLaunchesQuery();
+    const data = launches.data?.results?.length >= 1 && launches.data.results[0]
+    const navigation = useNavigation();
 
     return (
         <Wrapper>
@@ -21,8 +24,8 @@ const Home = () => {
                 {
                     launches.isLoading ? <Loader /> :
                     <>
-                    <LaunchPreview data={launches.data.results[0]} />
-                    <Countdown launchTime={launches.data.results[0].net} status={launches.data.results[0].status} />
+                    <LaunchPreview data={data} onPress={() => navigation.navigate('Details', { data })} />
+                    <Countdown launchTime={data.net} status={data.status} />
                     </>
                 }
             </View>
