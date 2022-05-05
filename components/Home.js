@@ -20,7 +20,6 @@ const Home = () => {
     return (
         <Wrapper>
             <View>
-                <Text>Spacewalk - your rocket launches & space news companion</Text>
                 {
                     launches.isLoading ? <Loader /> :
                     <>
