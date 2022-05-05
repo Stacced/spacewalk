@@ -39,10 +39,9 @@ export default function App() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'blue',
-          tabBarInactiveTintColor: 'gray',
-          headerShown: false
+          tabBarInactiveTintColor: 'gray'
         })}>
-          <Tab.Screen name="HomeStack" component={HomeStack} />
+          <Tab.Screen options={{ headerShown: false, tabBarLabel: 'Home' }} name="HomeStack" component={HomeStack} />
           <Tab.Screen name="Calendar" component={Calendar} />
         </Tab.Navigator>
         <StatusBar/>
