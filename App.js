@@ -7,7 +7,7 @@ import { store } from './redux/store';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Home from './components/Home';
 import Calendar from './components/Calendar';
-import Details from './components/Details';
+import LaunchDetails from './components/LaunchDetails';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
@@ -17,7 +17,7 @@ const HomeStack = () => {
   return (
     <HomeNavigator.Navigator>
       <HomeNavigator.Screen name="Home" component={Home} />
-      <HomeNavigator.Screen name="Details" component={Details} options={{ headerBackTitle: 'Back' }} />
+      <HomeNavigator.Screen name="Details" component={LaunchDetails} options={{ headerBackTitle: 'Back' }} />
     </HomeNavigator.Navigator>
   )
 }

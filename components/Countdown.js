@@ -36,9 +36,11 @@ const Countdown = ({ launchTime, status }) => {
     
     useEffect(() => {
         updateTimeLeft();
-        timer = setInterval(() => {
-            updateTimeLeft();
-        }, 1000);
+        if (timeLeft > 0) {
+            timer = setInterval(() => {
+                updateTimeLeft();
+            }, 1000);
+        }
 
         return () => {
             clearInterval(timer);
