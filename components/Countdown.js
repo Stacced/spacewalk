@@ -3,11 +3,12 @@ import styled from 'styled-components/native';
 
 const Wrapper = styled.View`
     margin: 0 20px;
-    border-radius: 10px;
+    border-radius: 20px;
     align-items: center;
     padding: 20px;
     flex-direction: row;
     justify-content: space-around;
+    background-color: #fff;
 `;
 
 const UnitBlockWrapper = styled.View`

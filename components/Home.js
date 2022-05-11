@@ -10,6 +10,7 @@ import Loader from './Loader';
 const Wrapper = styled.SafeAreaView`
     flex: 1;
     align-items: center;
+    background: #e6e6e6;
 `;
 
 const Home = () => {

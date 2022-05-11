@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, Text, Animated } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import styled from 'styled-components/native';
 import Countdown from './Countdown';
 
@@ -10,6 +11,13 @@ const Image = styled(Animated.Image)`
     width: 100%;
     position: absolute;
     background: #888;
+`;
+
+const Content = styled.View`
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    margin-top: 30px;
+    background: #e6e6e6;
 `;
 
 const Title = styled.Text`
@@ -29,6 +37,7 @@ const Subtitle = styled.Text`
 const Description = styled.View`
     padding: 20px;
     margin: 16px 0;
+    background-color: #fff;
 `;
 
 const DescriptionText = styled.Text`
@@ -45,11 +54,6 @@ const Row = styled.View`
 const LaunchDetails = ({ route }) => {
     const { data } = route.params;
     const [ scrollY ] = useState(new Animated.Value(0));
-    console.log(data.mission);
-
-    const videoLink = data.vidURLs && data.vidURLs.length > 0 && data.vidURLs[0].url;
-    const wikipediaLink = data.launch_service_provider.wiki_url;
-    const lspAbbreviation = data.launch_service_provider.abbrev ?? '';
     const missionType = data.mission?.type ?? 'Unknown';
     const missionDescription = data.mission?.description ?? 'No description available';
 
@@ -58,8 +62,6 @@ const LaunchDetails = ({ route }) => {
         outputRange: [1.4, 1.2, 1],
         extrapolate: 'clamp'
     })
-
-    console.log(data.net)
 
     return (
         <View style={{ overflow: 'hidden' }}>
@@ -73,38 +75,43 @@ const LaunchDetails = ({ route }) => {
                     }
                 )}
             >
-                <View>
+                <Content>
                     <Title>{data.name}</Title>
                     <Countdown launchTime={data.net} status={data.status} />
                     <Subtitle>Mission</Subtitle>
                     <Description>
                         <View>
-                            <Text>{missionType}</Text>
+                            <Text style={{ fontWeight: 'bold' }}>{missionType}</Text>
                             <View style={{ marginTop: 10 }}>
                                 <DescriptionText>{missionDescription}</DescriptionText>
                             </View>
-                            {
-                                data.launch_service_provider.name && (
-                                    <Row>
-                                        <Text>{data.launch_service_provider.name}</Text>
-                                    </Row>
-                                )
-                            }
-                            {
-                                data.net && (
-                                    <Text>{ new Date(data.net).toLocaleString() }</Text>
-                                )
-                            }
-                            {
-                                data.pad.name && (
-                                    <Row>
-                                        <Text>{ data.pad.location.name }</Text>
-                                    </Row>
-                                )
-                            }
                         </View>
+                        {
+                            data.launch_service_provider.name && (
+                                <Row>
+                                    <Ionicons name="ios-briefcase" size={20} color="blue"/>
+                                    <Text>{data.launch_service_provider.name}</Text>
+                                </Row>
+                            )
+                        }
+                        {
+                            data.net && (
+                                <Row>
+                                    <Ionicons name="ios-time-outline" size={20} color="blue"/>
+                                    <Text>{ new Date(data.net).toLocaleString() }</Text>
+                                </Row>
+                            )
+                        }
+                        {
+                            data.pad.name && (
+                                <Row>
+                                    <Ionicons name="ios-pin" size={20} color="blue"/>
+                                    <Text>{ data.pad.location.name }</Text>
+                                </Row>
+                            )
+                        }
                     </Description>
-                </View>
+                </Content>
             </Animated.ScrollView>
         </View>
     )
