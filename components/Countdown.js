@@ -31,17 +31,17 @@ const StatusText = styled.Text`
 
 let timer;
 const Countdown = ({ launchTime, status }) => {
-    const [timeLeft, setTimeLeft] = useState(0);
-    const launchTimestamp = new Date(launchTime).getTime() / 1000;
+    const [timeLeft, setTimeLeft] = useState('TBD');
+    const launchTimestamp = new Date(launchTime);
     
     useEffect(() => {
         updateTimeLeft();
-        if (timeLeft > 0) {
+        if (timeLeft > 0 || timeLeft == 'TBD') {
             timer = setInterval(() => {
                 updateTimeLeft();
-            }, 1000);
+            }, 500);
         }
-
+        
         return () => {
             clearInterval(timer);
         }
@@ -49,7 +49,7 @@ const Countdown = ({ launchTime, status }) => {
 
     const updateTimeLeft = () => {
         const now = new Date();
-        const timeLeft = launchTimestamp * 1000 - now.getTime();
+        const timeLeft = launchTimestamp - now.getTime();
         setTimeLeft(timeLeft);
     }
 
@@ -57,7 +57,7 @@ const Countdown = ({ launchTime, status }) => {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    const noTimeData = timeLeft <= 0;
+    const noTimeData = timeLeft <= 0 || timeLeft == 'TBD';
 
     return (
         <Wrapper>
