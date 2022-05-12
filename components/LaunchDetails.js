@@ -90,7 +90,7 @@ const LaunchDetails = ({ route }) => {
                             data.launch_service_provider.name && (
                                 <Row>
                                     <Ionicons name="ios-briefcase" size={20} color="blue"/>
-                                    <Text>{data.launch_service_provider.name}</Text>
+                                    <Text style={{ marginLeft: 5 }}>{data.launch_service_provider.name}</Text>
                                 </Row>
                             )
                         }
@@ -98,7 +98,7 @@ const LaunchDetails = ({ route }) => {
                             data.net && (
                                 <Row>
                                     <Ionicons name="ios-time-outline" size={20} color="blue"/>
-                                    <Text>{ new Date(data.net).toLocaleString() }</Text>
+                                    <Text style={{ marginLeft: 5 }}>{ new Date(data.net).toLocaleString() }</Text>
                                 </Row>
                             )
                         }
@@ -106,7 +106,7 @@ const LaunchDetails = ({ route }) => {
                             data.pad.name && (
                                 <Row>
                                     <Ionicons name="ios-pin" size={20} color="blue"/>
-                                    <Text>{ data.pad.location.name }</Text>
+                                    <Text style={{ marginLeft: 5 }}>{ data.pad.location.name }</Text>
                                 </Row>
                             )
                         }
