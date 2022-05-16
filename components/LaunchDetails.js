@@ -51,6 +51,10 @@ const Row = styled.View`
     margin-bottom: 10px;
 `;
 
+const Label = styled.Text`
+    margin-left: 10px;
+`;
+
 const LaunchDetails = ({ route }) => {
     const { data } = route.params;
     const [ scrollY ] = useState(new Animated.Value(0));
@@ -90,7 +94,7 @@ const LaunchDetails = ({ route }) => {
                             data.launch_service_provider.name && (
                                 <Row>
                                     <Ionicons name="ios-briefcase" size={20} color="blue"/>
-                                    <Text>{data.launch_service_provider.name}</Text>
+                                    <Label>{data.launch_service_provider.name}</Label>
                                 </Row>
                             )
                         }
@@ -98,7 +102,7 @@ const LaunchDetails = ({ route }) => {
                             data.net && (
                                 <Row>
                                     <Ionicons name="ios-time-outline" size={20} color="blue"/>
-                                    <Text>{ new Date(data.net).toLocaleString() }</Text>
+                                    <Label>{ new Date(data.net).toLocaleString() }</Label>
                                 </Row>
                             )
                         }
@@ -106,7 +110,7 @@ const LaunchDetails = ({ route }) => {
                             data.pad.name && (
                                 <Row>
                                     <Ionicons name="ios-pin" size={20} color="blue"/>
-                                    <Text>{ data.pad.location.name }</Text>
+                                    <Label>{ data.pad.location.name }</Label>
                                 </Row>
                             )
                         }
