@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 const EventDetails = props => {
     return (
         <View>
-            <Text>Event Details !</Text>
+            <Text>News Details !</Text>
         </View>
     )
 }

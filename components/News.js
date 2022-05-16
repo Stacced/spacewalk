@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Events = () => {
     return (
         <View>
-            <Text>Events !</Text>
+            <Text>News !</Text>
         </View>
     )
 }
