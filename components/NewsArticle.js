@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-const EventDetails = props => {
+const NewsArticle = props => {
     return (
         <View>
             <Text>News Details !</Text>
@@ -8,4 +8,4 @@ const EventDetails = props => {
     )
 }
 
-export default EventDetails;
+export default NewsArticle;

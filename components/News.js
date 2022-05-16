@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import styled from 'styled-components';
 
-const Events = () => {
+const News = () => {
     return (
         <View>
             <Text>News !</Text>
@@ -10,4 +10,4 @@ const Events = () => {
     )
 }
 
-export default Events;
+export default News;
