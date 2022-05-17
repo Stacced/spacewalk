@@ -1,10 +1,10 @@
-import { Text, View } from "react-native";
+import WebView from "react-native-webview";
 
-const NewsArticle = props => {
+const NewsArticle = ({ route }) => {
+    const data = route.params.item;
+
     return (
-        <View>
-            <Text>News Details !</Text>
-        </View>
+        <WebView source={{ uri: data.url }} style={{ margin: 20 }} />
     )
 }
 
