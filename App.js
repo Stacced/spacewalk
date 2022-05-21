@@ -1,5 +1,4 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Provider } from 'react-redux';
@@ -14,6 +13,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 const HomeNavigator = createStackNavigator();
+const CalendarNavigator = createStackNavigator();
 const EventNavigator = createStackNavigator();
 
 const HomeStack = () => {
@@ -22,6 +22,15 @@ const HomeStack = () => {
       <HomeNavigator.Screen name="Home" component={Home} />
       <HomeNavigator.Screen name="Details" component={LaunchDetails} options={{ headerBackTitle: 'Back' }} />
     </HomeNavigator.Navigator>
+  )
+}
+
+const CalendarStack = () => {
+  return (
+    <CalendarNavigator.Navigator>
+      <CalendarNavigator.Screen name="Calendar" component={Calendar} />
+      <CalendarNavigator.Screen name="Details" component={LaunchDetails} options={{ headerBackTitle: 'Back' }} />
+    </CalendarNavigator.Navigator>
   )
 }
 
@@ -46,7 +55,7 @@ export default function App() {
               iconName = focused ? 'ios-home' : 'ios-home-outline';
             } else if (route.name === 'NewsStack') {
               iconName = focused ? 'ios-newspaper' : 'ios-newspaper-outline';
-            } else if (route.name === 'Calendar') {
+            } else if (route.name === 'CalendarStack') {
               iconName = focused ? 'ios-calendar' : 'ios-calendar-outline';
             }
 
@@ -56,7 +65,7 @@ export default function App() {
           tabBarInactiveTintColor: 'gray'
         })}>
           <Tab.Screen options={{ headerShown: false, tabBarLabel: 'Home' }} name="HomeStack" component={HomeStack} />
-          <Tab.Screen name="Calendar" component={Calendar} />
+          <Tab.Screen options={{ headerShown: false, tabBarLabel: 'Calendar' }} name="CalendarStack" component={CalendarStack} />
           <Tab.Screen options={{ headerShown: false, tabBarLabel: 'News' }} name="NewsStack" component={NewsStack} />
         </Tab.Navigator>
         <StatusBar/>
