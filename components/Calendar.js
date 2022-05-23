@@ -22,7 +22,12 @@ const Calendar = ({ navigation }) => {
                             </Pressable>
                         )}
                         ListFooterComponent={() => (
-                            <Button title="Load more launches" disabled={launches.isLoading || launches.isError} onPress={() => setPage(page + 1)} />
+                            <View style={{ margin: 20 }}>
+                                {
+                                    launches.isFetching ? <Loader /> :
+                                    <Button title="Load more launches" disabled={launches.isFetching || launches.isError} onPress={() => setPage(page + 1)} />
+                                }
+                            </View>
                         )}
                     />
                 )
