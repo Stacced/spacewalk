@@ -4,17 +4,17 @@ const favoritesSlice = createSlice({
     name: 'favorites',
     initialState: [],
     reducers: {
-        favoriteAdded(state, action) {
+        addFavorite(state, action) {
             state.push({
                 id: action.payload.id,
                 launched: action.payload.launched,
             });
         },
-        favoriteRemoved(state, action) {
+        removeFavorite(state, action) {
             state.splice(state.findIndex(favorite => favorite.id === action.payload.id), 1);
         },
     }
 });
 
-export const { favoriteAdded, favoriteRemoved } = favoritesSlice.actions;
+export const { addFavorite, removeFavorite } = favoritesSlice.actions;
 export default favoritesSlice;

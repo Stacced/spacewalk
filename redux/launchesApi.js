@@ -6,7 +6,7 @@ export const launchesApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: LAUNCHES_API_URL }),
     endpoints: builder => ({
         getUpcomingLaunches: builder.query({
-            query: number => `launch/upcoming?limit=${number || 10}&mode=detailed`,
+            query: number => `launch/upcoming?limit=${number * 10 || 10}&mode=detailed`,
         })
     })
 })

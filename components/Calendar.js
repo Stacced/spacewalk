@@ -1,10 +1,12 @@
-import { FlatList, Pressable, View } from 'react-native';
+import { useState } from 'react';
+import { Button, FlatList, Pressable, View } from 'react-native';
 import { useGetUpcomingLaunchesQuery } from '../redux/launchesApi';
 import CalendarCard from './CalendarCard';
 import Loader from './Loader';
 
 const Calendar = ({ navigation }) => {
-    const launches = useGetUpcomingLaunchesQuery();
+    const [page, setPage] = useState(1);
+    const launches = useGetUpcomingLaunchesQuery(page);
 
     return (
         <View>
@@ -18,6 +20,9 @@ const Calendar = ({ navigation }) => {
                             <Pressable key={item.id} onPress={() => navigation.navigate('Details', { data: item })}>
                                 <CalendarCard data={item}/>
                             </Pressable>
+                        )}
+                        ListFooterComponent={() => (
+                            <Button title="Load more launches" disabled={launches.isLoading || launches.isError} onPress={() => setPage(page + 1)} />
                         )}
                     />
                 )
