@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+const storage = useAsyncStorage('favorites');
 
 const favoritesSlice = createSlice({
     name: 'favorites',
@@ -7,11 +9,12 @@ const favoritesSlice = createSlice({
         addFavorite(state, action) {
             state.push({
                 id: action.payload.id,
-                launched: action.payload.launched,
             });
+            storage.setItem(JSON.stringify(state));
         },
         removeFavorite(state, action) {
             state.splice(state.findIndex(favorite => favorite.id === action.payload.id), 1);
+            storage.setItem(JSON.stringify(state));
         },
     }
 });
