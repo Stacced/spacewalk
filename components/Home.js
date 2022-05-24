@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import styled from 'styled-components/native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useGetUpcomingLaunchesQuery } from '../redux/launchesApi';
 import Countdown from './Countdown';
 import LaunchPreview from './LaunchPreview';
