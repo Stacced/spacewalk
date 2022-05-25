@@ -6,7 +6,7 @@ export const newsApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: NEWS_API_URL }),
     endpoints: builder => ({
         getNews: builder.query({
-            query: () => `articles`
+            query: page => `articles?_limit=${page * 10}`,
         })
     })
 });

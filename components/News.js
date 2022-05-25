@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Pressable, ScrollView, Text } from 'react-native';
+import { View, Pressable, ScrollView, Text, Button } from 'react-native';
 import styled from 'styled-components/native';
 import { useGetNewsQuery } from '../redux/newsApi';
 import Loader from './Loader';
 
-const Thumbnail = styled.ImageBackground`
+const Thumbnail = styled.Image`
     height: 100px;
     width: 100px;
     border-radius: 10px;
@@ -32,7 +33,9 @@ const Dot = styled.View`
 `;
 
 const News = () => {
-    const news = useGetNewsQuery();
+    const [page, setPage] = useState(1);
+
+    const news = useGetNewsQuery(page);
     const data = news.data?.length >= 1 && news.data;
     const navigation = useNavigation();
 
@@ -64,6 +67,15 @@ const News = () => {
                     )
                 })
             }
+            <View style={{ margin: 20 }}>
+                {
+                    !news.isLoading && news.isFetching ? <Loader /> :
+                    <Button
+                        title="Load more news"
+                        onPress={() => setPage(page + 1)}
+                    />
+                }
+            </View>
         </ScrollView>
     )
 }
