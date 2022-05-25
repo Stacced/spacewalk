@@ -12,7 +12,9 @@ const Calendar = ({ navigation }) => {
         <View>
             {
                 launches.isLoading ? (
-                    <Loader />
+                    <View style={{ marginTop: 20 }}>
+                        <Loader />
+                    </View>
                 ) : (
                     <FlatList
                         data={launches.data?.results}
