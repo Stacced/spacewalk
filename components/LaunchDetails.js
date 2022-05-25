@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { View, Text, Animated } from 'react-native';
+import { View, Text, Animated, Button } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite, removeFavorite } from '../redux/favoritesSlice';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import styled from 'styled-components/native';
 import Countdown from './Countdown';
@@ -58,6 +60,9 @@ const Label = styled.Text`
 const LaunchDetails = ({ route }) => {
     const { data } = route.params;
     const [ scrollY ] = useState(new Animated.Value(0));
+    const dispatch = useDispatch();
+    const favorites = useSelector(state => state.favorites);
+    const isFavorite = favorites.find(favorite => favorite.id === data.id);
     const missionType = data.mission?.type ?? 'Unknown';
     const missionDescription = data.mission?.description ?? 'No description available';
 
@@ -115,6 +120,10 @@ const LaunchDetails = ({ route }) => {
                             )
                         }
                     </Description>
+                    <Button
+                        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                        onPress={() => isFavorite ? dispatch(removeFavorite({ id: data.id })) : dispatch(addFavorite({ id: data.id }))}
+                    />
                 </Content>
             </Animated.ScrollView>
         </View>
