@@ -1,36 +1,9 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Pressable, ScrollView, Text, Button } from 'react-native';
-import styled from 'styled-components/native';
+import { View, Pressable, Button, FlatList } from 'react-native';
 import { useGetNewsQuery } from '../redux/newsApi';
 import Loader from './Loader';
-
-const Thumbnail = styled.Image`
-    height: 100px;
-    width: 100px;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-right: 10px;
-`;
-
-const NewsCard = styled.View`
-    background: #fff;
-    border-radius: 10px;
-    flex-direction: row;
-    margin: 10px;
-    padding: 10px;
-`;
-
-const Subtitle = styled.Text`
-    font-weight: bold;
-`;
-
-const Dot = styled.View`
-  	width: 10px;
-  	height: 10px;
-  	border-radius: 5px;
-  	background: blue;
-`;
+import NewsCard from './NewsCard';
 
 const News = () => {
     const [page, setPage] = useState(1);
@@ -40,43 +13,32 @@ const News = () => {
     const navigation = useNavigation();
 
     return (
-        <ScrollView>
+        <View>
             {
-                news.isLoading ? <Loader /> :
-                data.map(item => {
-                    const datePublished = new Date(item.publishedAt).getTime() / 1000;
-                    const timeDiff = new Date().getTime() / 1000 - datePublished;
-                    const daysDiff = Math.floor(timeDiff / 60 / 60 / 24);
-                    const timePosted =
-                    daysDiff > 0
-                        ? `${daysDiff} day${daysDiff > 1 ? "s" : ""} ago`
-                        : "Today";
-
-                    return (
-                        <Pressable key={item.id} onPress={() => navigation.navigate('Article', { item })}>
-                        <NewsCard>
-                            <Thumbnail source={{ uri: item.imageUrl }} />
-                            <View style={{ justifyContent: 'space-between', width: '70%' }}>
-                                <Text>{item.title}</Text>
-                                <Subtitle>
-                                    {item.newsSite} <Dot/> {timePosted}
-                                </Subtitle>
+                news.isLoading ? (
+                    <View style={{ marginTop: 20 }}>
+                        <Loader />
+                    </View>
+                ) : (
+                    <FlatList
+                        data={data}
+                        renderItem={({ item }) => (
+                            <Pressable key={item.id} onPress={() => navigation.navigate('Article', { item })}>
+                                <NewsCard data={item} />
+                            </Pressable>
+                        )}
+                        ListFooterComponent={() => (
+                            <View style={{ margin: 20 }}>
+                                {
+                                    news.isFetching ? <Loader /> :
+                                    <Button title="Load more news" disabled={news.isFetching || news.isError} onPress={() => setPage(page + 1)} />
+                                }
                             </View>
-                        </NewsCard>
-                    </Pressable>
-                    )
-                })
-            }
-            <View style={{ margin: 20 }}>
-                {
-                    !news.isLoading && news.isFetching ? <Loader /> :
-                    <Button
-                        title="Load more news"
-                        onPress={() => setPage(page + 1)}
+                        )}
                     />
-                }
-            </View>
-        </ScrollView>
+                )
+            }
+        </View>
     )
 }
 
