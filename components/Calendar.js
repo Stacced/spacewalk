@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, FlatList, Pressable, View } from 'react-native';
 import { useGetUpcomingLaunchesQuery } from '../redux/launchesApi';
 import CalendarCard from './CalendarCard';
@@ -7,6 +8,7 @@ import Loader from './Loader';
 const Calendar = ({ navigation }) => {
     const [page, setPage] = useState(1);
     const launches = useGetUpcomingLaunchesQuery(page);
+    const favorites = useSelector(state => state.favorites);
 
     return (
         <View>
@@ -20,7 +22,7 @@ const Calendar = ({ navigation }) => {
                         data={launches.data?.results}
                         renderItem={({ item }) => (
                             <Pressable key={item.id} onPress={() => navigation.navigate('Details', { data: item })}>
-                                <CalendarCard data={item}/>
+                                <CalendarCard data={item} isFavorite={favorites.find(favorite => favorite.id === item.id)}/>
                             </Pressable>
                         )}
                         ListFooterComponent={() => (

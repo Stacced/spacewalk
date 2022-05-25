@@ -1,5 +1,6 @@
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
+import { AntDesign } from '@expo/vector-icons';
 import { MONTHS } from '../constants';
 
 const Wrapper = styled.View`
@@ -56,6 +57,7 @@ const CalendarCard = props => {
                     )}
                 </DateWrapper>
                 <TextWrapper>
+                    { props.isFavorite && <AntDesign name="star" size={15} color="gold" /> }
                     <Description bold>{props.data.name}</Description>
                     <Description numberOfLines={1}>{props.data.pad.name}</Description>
                     <Text numberOfLines={2}>
