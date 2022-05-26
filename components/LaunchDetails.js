@@ -120,10 +120,14 @@ const LaunchDetails = ({ route }) => {
                             )
                         }
                     </Description>
-                    <Button
-                        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                        onPress={() => isFavorite ? dispatch(removeFavorite({ id: data.id })) : dispatch(addFavorite({ id: data.id, launchTime: data.net }))}
-                    />
+                    {
+                        new Date(data.net) > new Date() && (
+                            <Button
+                                title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                                onPress={() => isFavorite ? dispatch(removeFavorite({ id: data.id })) : dispatch(addFavorite({ id: data.id, launchTime: data.net }))}
+                            />
+                        )
+                    }
                 </Content>
             </Animated.ScrollView>
         </View>
