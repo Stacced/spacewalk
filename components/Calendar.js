@@ -21,16 +21,18 @@ const Calendar = ({ navigation }) => {
                     </View>
                 ) : (
                     <>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <Text>Show favorite launches only</Text>
-                        <Switch disabled={launches.isLoading} value={onlyFavorites} onValueChange={setOnlyFavorites} />
-                    </View>
                     <FlatList
                         data={displayedLaunches}
                         renderItem={({ item }) => (
                             <Pressable key={item.id} onPress={() => navigation.navigate('Details', { data: item })}>
                                 <CalendarCard data={item} isFavorite={favorites.find(favorite => favorite.id === item.id)}/>
                             </Pressable>
+                        )}
+                        ListHeaderComponent={() => (
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                                <Text>Show favorite launches only</Text>
+                                <Switch disabled={launches.isLoading} value={onlyFavorites} onValueChange={setOnlyFavorites} />
+                            </View>
                         )}
                         ListFooterComponent={() => (
                             <View style={{ margin: 20 }}>
